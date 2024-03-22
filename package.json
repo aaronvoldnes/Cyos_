@@ -10,25 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/builders": "^1.7.0",
-    "@discordjs/opus": "^0.9.0",
-    "@discordjs/rest": "^2.2.0",
-    "@discordjs/voice": "^0.16.1",
-    "@distube/ytsr": "^2.0.0",
-    "@sinonjs/commons": "^4.0.0-alpha.0",
-    "axios": "^1.6.7",
-    "discord-api-types": "^0.37.70",
-    "discord-player": "^6.6.7",
-    "discord.js": "^14.14.1",
-    "discord.js-music-v11": "^1.3.4",
-    "distube": "^4.1.1",
-    "express": "^4.18.2",
-    "libsodium-wrappers": "^0.7.13",
-    "mongodb": "^6.3.0",
-    "openai": "^4.20.0",
-    "opusscript": "^0.0.8",
-    "prism-media": "^1.3.5",
-    "ytdl-core": "^4.11.5",
-    "ytsr": "^3.8.4"
+
   }
 }
