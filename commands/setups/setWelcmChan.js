@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { setWelcomeMessage, setWelcomeChannel } = require('../functions/mongodb');
+const { setWelcomeMessage, setWelcomeChannel } = require('../../functions/mongodb');
 
 module.exports = {
   data: new SlashCommandBuilder()

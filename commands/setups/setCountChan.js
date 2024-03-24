@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { setCountingChannelId, getCountingChannelId } = require('../functions/mongodb');
+const { setCountingChannelId, getCountingChannelId } = require('../../functions/mongodb');
 
 module.exports = {
   data: new SlashCommandBuilder()
