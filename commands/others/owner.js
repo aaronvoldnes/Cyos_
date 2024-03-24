@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('creator')
+    .setName('owner')
     .setDescription('Replies with the bot\'s Creator.'),
   async execute(interaction) {
     const embed = new EmbedBuilder()

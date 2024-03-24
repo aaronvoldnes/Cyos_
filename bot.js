@@ -6,6 +6,10 @@ const fs = require('fs');
 const { connectToDatabase, getWelcomeChannel, getWelcomeMessage } = require('./functions/mongodb');
 const { DisTube } = require('distube');
 
+// Import the function to register slash commands
+const registerSlashCommands = require('./registerCommands');
+
+// Create a new Discord client
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -16,24 +20,25 @@ const client = new Client({
     ],
 });
 
+// Initialize DisTube
 const distube = new DisTube(client, {
     leaveOnStop: false,
     emitNewSongOnly: true,
 });
 
-const commandsFolder = './commands';
-
+// Map to store slash commands
 client.commands = new Map();
 client.textCommands = new Map();
 
+// Function to load slash commands
 async function loadSlashCommands() {
     try {
-        const subFolders = fs.readdirSync(commandsFolder, { withFileTypes: true })
+        const subFolders = fs.readdirSync('./commands', { withFileTypes: true })
             .filter(dirent => dirent.isDirectory())
             .map(dirent => dirent.name);
 
         for (const folder of subFolders) {
-            const folderPath = `${commandsFolder}/${folder}`;
+            const folderPath = `./commands/${folder}`;
             const commandFiles = fs.readdirSync(folderPath).filter(file => file.endsWith('.js'));
 
             for (const file of commandFiles) {
@@ -50,6 +55,7 @@ async function loadSlashCommands() {
     }
 }
 
+// Function to load events
 async function loadEvents() {
     try {
         const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -67,14 +73,17 @@ async function loadEvents() {
     }
 }
 
+// Log in to Discord and register slash commands
 client.login(token).then(async () => {
     console.log('Bot logged in successfully.');
     await loadSlashCommands();
     await loadEvents();
+    await registerSlashCommands(); // Register slash commands after logging in
 }).catch(error => {
     console.error('Error logging in:', error);
 });
 
+// Event: Bot is ready
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     setBotStatus();
@@ -83,6 +92,7 @@ client.once('ready', () => {
     setInterval(sendDataToMongoDB, 3600000);
 });
 
+// Event: Interaction with slash commands
 client.on('interactionCreate', async (interaction) => {
     try {
         if (interaction.isCommand()) {
@@ -99,10 +109,12 @@ client.on('interactionCreate', async (interaction) => {
     }
 });
 
+// Event: Slash command deleted
 client.on('commandDelete', (deletedCommand) => {
     console.log(`Command ${deletedCommand.data.name} was deleted.`);
 });
 
+// Event: New member joins guild
 client.on('guildMemberAdd', async (member) => {
     const guildId = member.guild.id;
     const channelId = await getWelcomeChannel(guildId);
@@ -120,6 +132,7 @@ client.on('guildMemberAdd', async (member) => {
     }
 });
 
+// Function: Send data to MongoDB
 async function sendDataToMongoDB() {
     try {
         console.log('Data sent to MongoDB successfully.');
@@ -128,6 +141,7 @@ async function sendDataToMongoDB() {
     }
 }
 
+// Function: Set bot status
 function setBotStatus() {
     try {
         const guildCount = client.guilds.cache.size;

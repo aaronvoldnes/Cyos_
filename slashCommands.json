@@ -1,0 +1,87 @@
+[
+    {
+        "name": "ban",
+        "description": "ban a user"
+    },
+    {
+        "name": "kick",
+        "description": "kick user"
+    },
+
+
+
+    {
+        "name": "play",
+        "description": "play a song"
+    },
+    {
+        "name": "pause",
+        "description": "pause and resume a song"
+    },
+    {
+        "name": "skip",
+        "description": "skip song"
+    },
+    {
+        "name": "shuffle",
+        "description": "shuffle songs"
+    },
+    {
+        "name": "nowplaying",
+        "description": "show song playing now"
+    },
+    {
+        "name": "queue",
+        "description": "list of songs added to queue"
+    },
+    {
+        "name": "equalizer",
+        "description": "tune bots sound"
+    },
+
+
+
+    {
+        "name": "meme",
+        "description": "meme"
+    },
+    {
+        "name": "rps",
+        "description": "Play Rock paper siscors"
+    },
+    {
+        "name": "td",
+        "description": "Play truth or dare"
+    },
+    {
+        "name": "clear",
+        "description": "clear meassges"
+    },
+    {
+        "name": "welcomemsg",
+        "description": "setup a welcome meassge for your discord server"
+    },
+    {
+        "name": "randomd",
+        "description": "show random size of d"
+    },
+    {
+        "name": "counting",
+        "description": "setup counting game"
+    },
+
+
+
+    {
+        "name": "ping",
+        "description": "Replies with Pong!"
+    },
+    {
+        "name": "owner",
+        "description": "show creator of discord bot"
+    },
+    {
+        "name": "help",
+        "description": "show commands"
+    }
+]
