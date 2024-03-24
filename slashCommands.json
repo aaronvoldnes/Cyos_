@@ -1,87 +1,95 @@
 [
     {
         "name": "ban",
-        "description": "ban a user"
+        "description": "Ban a user from the server."
     },
     {
         "name": "kick",
-        "description": "kick user"
+        "description": "Kick a user from the server."
     },
 
 
-
+    
     {
         "name": "play",
-        "description": "play a song"
+        "description": "Play a song from YouTube.",
+        "options": [
+            {
+                "name": "song",
+                "description": "The name of the song to play.",
+                "type": 3,
+                "required": true
+            }
+        ]
     },
     {
         "name": "pause",
-        "description": "pause and resume a song"
+        "description": "Pause the currently playing song."
     },
     {
         "name": "skip",
-        "description": "skip song"
+        "description": "Skip the currently playing song."
     },
     {
         "name": "shuffle",
-        "description": "shuffle songs"
+        "description": "Shuffle the songs in the queue."
     },
     {
         "name": "nowplaying",
-        "description": "show song playing now"
+        "description": "Display information about the currently playing song."
     },
     {
         "name": "queue",
-        "description": "list of songs added to queue"
+        "description": "Display the list of songs in the queue."
     },
     {
         "name": "equalizer",
-        "description": "tune bots sound"
+        "description": "Adjust the equalizer settings of the bot."
     },
 
 
 
     {
         "name": "meme",
-        "description": "meme"
+        "description": "Fetch a random meme from the internet."
     },
     {
         "name": "rps",
-        "description": "Play Rock paper siscors"
+        "description": "Play Rock, Paper, Scissors with the bot."
     },
     {
         "name": "td",
-        "description": "Play truth or dare"
+        "description": "Play a fun game of Truth or Dare."
     },
     {
         "name": "clear",
-        "description": "clear meassges"
+        "description": "Clear messages from a channel."
     },
     {
         "name": "welcomemsg",
-        "description": "setup a welcome meassge for your discord server"
+        "description": "Set up a customized welcome message for new members."
     },
     {
         "name": "randomd",
-        "description": "show random size of d"
+        "description": "Roll a random size of dice."
     },
     {
         "name": "counting",
-        "description": "setup counting game"
+        "description": "Set up a counting game in a channel."
     },
 
 
 
     {
         "name": "ping",
-        "description": "Replies with Pong!"
+        "description": "Check the bot's latency."
     },
     {
         "name": "owner",
-        "description": "show creator of discord bot"
+        "description": "Get information about the creator of the Discord bot."
     },
     {
         "name": "help",
-        "description": "show commands"
+        "description": "Display a list of available commands."
     }
 ]

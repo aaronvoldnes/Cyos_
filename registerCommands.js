@@ -1,7 +1,6 @@
 // registerCommands.js
 
 const fs = require('fs');
-const fetch = require('node-fetch');
 const { clientId, token } = require('./config.json');
 
 async function registerSlashCommands() {
