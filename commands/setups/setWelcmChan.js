@@ -13,7 +13,7 @@ module.exports = {
       // Check user permissions
       if (!interaction.member.permissions.has('ADMINISTRATOR')) {
         return await interaction.reply({
-          content: 'You do not have permission to use this command.',
+          content: 'You do not have permission to use this command!',
           ephemeral: true,
         });
       }

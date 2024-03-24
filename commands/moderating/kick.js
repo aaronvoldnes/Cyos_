@@ -9,7 +9,7 @@ module.exports = {
     .addStringOption(option => option.setName('reason').setDescription('Reason for the kick')),
   async execute(interaction) {
     if (!interaction.guild) {
-      return await interaction.reply({ content: 'This command can only be used in a server.', ephemeral: true });
+      return await interaction.reply({ content: 'This command can only be used in a server!', ephemeral: true });
     }
 
     if (!interaction.member.permissions.has('KICK_MEMBERS')) {

@@ -29,7 +29,7 @@ module.exports = {
 
     // Check if there are messages to delete
     if (messagesToDelete.size === 0) {
-      return interaction.reply('No eligible messages to clear.');
+      return interaction.reply('No eligible messages to clear!');
     }
 
     // Delete messages

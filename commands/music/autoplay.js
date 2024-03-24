@@ -8,13 +8,13 @@ module.exports = {
     async execute(interaction, distube) {
         try {
             const queue = distube.getQueue(interaction.guildId);
-            if (!queue) return interaction.reply({ content: 'There is nothing in the queue right now!', ephemeral: true });
+            if (!queue) return interaction.reply({ content: 'There is nothing in the queue right now!' });
 
             const autoplay = queue.toggleAutoplay();
-            interaction.reply({ content: `AutoPlay: \`${autoplay ? 'On' : 'Off'}\``, ephemeral: true });
+            interaction.reply({ content: `AutoPlay: \`${autoplay ? 'On' : 'Off'}\`` });
         } catch (error) {
             console.error(error);
-            interaction.reply({ content: 'There was an error while processing this command!', ephemeral: true });
+            interaction.reply({ content: 'There was an error while processing this command!' });
         }
     },
 };

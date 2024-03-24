@@ -3,7 +3,6 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('fs');
-const path = require('path');
 const { connectToDatabase, getWelcomeChannel, getWelcomeMessage } = require('./functions/mongodb');
 const { DisTube } = require('distube');
 
@@ -17,41 +16,32 @@ const client = new Client({
     ],
 });
 
-const commandsFolder = './commands';
-const eventsFolder = './events';
-const functionsFolder = './functions';
-
-const baseFolders = [
-    path.join(__dirname, commandsFolder),
-    path.join(__dirname, eventsFolder),
-    path.join(__dirname, functionsFolder)
-];
-
 const distube = new DisTube(client, {
     leaveOnStop: false,
     emitNewSongOnly: true,
 });
 
+const commandsFolder = './commands';
+
+client.commands = new Map();
+client.textCommands = new Map();
+
 async function loadSlashCommands() {
     try {
-        for (const baseFolder of baseFolders) {
-            const commandFolders = fs.readdirSync(baseFolder);
+        const subFolders = fs.readdirSync(commandsFolder, { withFileTypes: true })
+            .filter(dirent => dirent.isDirectory())
+            .map(dirent => dirent.name);
 
-            for (const folder of commandFolders) {
-                const folderPath = path.join(baseFolder, folder);
-                if (fs.statSync(folderPath).isDirectory()) {
-                    const commandFiles = fs.readdirSync(folderPath).filter(file => file.endsWith('.js'));
+        for (const folder of subFolders) {
+            const folderPath = `${commandsFolder}/${folder}`;
+            const commandFiles = fs.readdirSync(folderPath).filter(file => file.endsWith('.js'));
 
-                    for (const file of commandFiles) {
-                        const command = require(path.join(folderPath, file));
-                        if (command && command.data && command.data.name) {
-                            if (!client.commands) client.commands = new Map();
-                            client.commands.set(command.data.name, command);
-                            console.log(`Registered slash command: ${command.data.name}`);
-                        } else {
-                            console.error(`Error loading slash command from file ${file}: Invalid command structure`);
-                        }
-                    }
+            for (const file of commandFiles) {
+                const command = require(`${folderPath}/${file}`);
+                if (command && command.data && command.data.name) {
+                    client.commands.set(command.data.name, command);
+                } else {
+                    console.error(`Error loading slash command from file ${file} in folder ${folder}: Invalid command structure`);
                 }
             }
         }
@@ -59,6 +49,31 @@ async function loadSlashCommands() {
         console.error('Error loading slash commands:', error);
     }
 }
+
+async function loadEvents() {
+    try {
+        const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+
+        for (const file of eventFiles) {
+            const event = require(`./events/${file}`);
+            if (event && typeof event === 'function') {
+                event(client, distube);
+            } else {
+                console.error(`Error loading event from file ${file}: Invalid event structure`);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading events:', error);
+    }
+}
+
+client.login(token).then(async () => {
+    console.log('Bot logged in successfully.');
+    await loadSlashCommands();
+    await loadEvents();
+}).catch(error => {
+    console.error('Error logging in:', error);
+});
 
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -135,10 +150,3 @@ function setBotStatus() {
         console.error('Error setting bot status:', error);
     }
 }
-
-client.login(token).then(async () => {
-    console.log('Bot logged in successfully.');
-    await loadSlashCommands();
-}).catch(error => {
-    console.error('Error logging in:', error);
-});

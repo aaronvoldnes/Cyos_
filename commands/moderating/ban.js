@@ -13,7 +13,7 @@ module.exports = {
     }
 
     if (!interaction.member.permissions.has('BAN_MEMBERS')) {
-      return await interaction.reply({ content: 'You do not have permission to use this command', ephemeral: true });
+      return await interaction.reply({ content: 'You do not have permission to use this command!', ephemeral: true });
     }
 
     const userToBan = interaction.options.getUser('user');

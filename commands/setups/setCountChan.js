@@ -22,7 +22,7 @@ module.exports = {
       await interaction.reply(`Counting game started 😃`);
     } catch (error) {
       console.error(error);
-      await interaction.reply('There was an error while trying to set the counting channel ID.');
+      await interaction.reply('There was an error while trying to set the counting channel ID!');
     }
   },
 };
