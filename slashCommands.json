@@ -1,11 +1,39 @@
 [
     {
         "name": "ban",
-        "description": "Ban a user from the server."
+        "description": "Ban a user from the server.",
+        "options": [
+            {
+                "name": "user",
+                "description": "The user to ban.",
+                "type": 6,
+                "required": true
+            }
+        ]
     },
     {
         "name": "kick",
-        "description": "Kick a user from the server."
+        "description": "Kick a user from the server.",
+        "options": [
+            {
+                "name": "user",
+                "description": "The user to kick.",
+                "type": 6,
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "clear",
+        "description": "Clear messages from a channel.",
+        "options": [
+            {
+                "name": "number",
+                "description": "The number of messages to clear.",
+                "type": 4,
+                "required": true
+            }
+        ]
     },
 
 
@@ -29,6 +57,10 @@
     {
         "name": "skip",
         "description": "Skip the currently playing song."
+    },
+    {
+        "name": "autoplay",
+        "description": "Autoplay songs without adding song to queue."
     },
     {
         "name": "shuffle",
@@ -62,12 +94,16 @@
         "description": "Play a fun game of Truth or Dare."
     },
     {
-        "name": "clear",
-        "description": "Clear messages from a channel."
-    },
-    {
         "name": "welcomemsg",
-        "description": "Set up a customized welcome message for new members."
+        "description": "Set up a customized welcome message for new members.",
+        "options": [
+            {
+                "name": "message",
+                "description": "The welcome message to display.",
+                "type": 3,
+                "required": true
+            }
+        ]
     },
     {
         "name": "randomd",
