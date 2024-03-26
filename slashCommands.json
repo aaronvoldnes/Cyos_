@@ -28,7 +28,7 @@
         "description": "Clear messages from a channel.",
         "options": [
             {
-                "name": "number",
+                "name": "amount",
                 "description": "The number of messages to clear.",
                 "type": 4,
                 "required": true
