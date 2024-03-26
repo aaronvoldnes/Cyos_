@@ -164,3 +164,5 @@ function setBotStatus() {
         console.error('Error setting bot status:', error);
     }
 }
+
+module.exports = { client, distube };

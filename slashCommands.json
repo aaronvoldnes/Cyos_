@@ -75,11 +75,89 @@
         "description": "Display the list of songs in the queue."
     },
     {
-        "name": "equalizer",
-        "description": "Adjust the equalizer settings of the bot."
+      "name": "filter",
+      "description": "Adjust the equalizer settings of the bot.",
+      "options": [
+        {
+          "name": "filter",
+          "description": "The filter to apply or remove.",
+          "type": 3,
+          "required": true,
+          "choices": [
+            {
+              "name": "Off",
+              "value": "off"
+            },
+            {
+              "name": "3D",
+              "value": "3d"
+            },
+            {
+              "name": "Bass Boost",
+              "value": "bassboost"
+            },
+            {
+              "name": "Echo",
+              "value": "echo"
+            },
+            {
+              "name": "Karaoke",
+              "value": "karaoke"
+            },
+            {
+              "name": "Nightcore",
+              "value": "nightcore"
+            },
+            {
+              "name": "Vaporwave",
+              "value": "vaporwave"
+            },
+            {
+              "name": "Flanger",
+              "value": "flanger"
+            },
+            {
+              "name": "Gate",
+              "value": "gate"
+            },
+            {
+              "name": "Haas",
+              "value": "haas"
+            },
+            {
+              "name": "Reverse",
+              "value": "reverse"
+            },
+            {
+              "name": "Surround",
+              "value": "surround"
+            },
+            {
+              "name": "MCompand",
+              "value": "mcompand"
+            },
+            {
+              "name": "Phaser",
+              "value": "phaser"
+            },
+            {
+              "name": "Tremolo",
+              "value": "tremolo"
+            },
+            {
+              "name": "Earwax",
+              "value": "earwax"
+            }
+          ]
+        }
+      ]
     },
+    {
+      "name": "24-7",
+      "description": "Puts the bot in a voice channel 24/7"
+    },    
 
-
+    
 
     {
         "name": "meme",

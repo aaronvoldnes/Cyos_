@@ -4,7 +4,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('autoplay')
-        .setDescription('Toggle autoplay for the current queue.'),
+        .setDescription('Autoplay songs without adding song to queue.'),
     async execute(interaction, distube) {
         try {
             const queue = distube.getQueue(interaction.guildId);
