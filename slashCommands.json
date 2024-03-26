@@ -190,16 +190,49 @@
 
 
 
+
     {
-        "name": "ping",
-        "description": "Check the bot's latency."
+      "name": "ping",
+      "description": "Check the bot's latency."
     },
     {
-        "name": "owner",
-        "description": "Get information about the creator of the Discord bot."
+      "name": "owner",
+      "description": "Get information about the creator of the Discord bot."
     },
     {
-        "name": "help",
-        "description": "Display a list of available commands."
-    }
+      "name": "help",
+      "description": "Display a list of available commands."
+    },
+    {
+      "name": "avatar",
+      "description": "View the avatar of a user.",
+      "options": [
+        {
+          "name": "user",
+          "description": "The user whose avatar you want to view.",
+          "type": 6,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "whois",
+      "description": "View information about a user.",
+      "options": [
+        {
+          "name": "user",
+          "description": "The user you want to get information about.",
+          "type": 6,
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "serverinfo",
+      "description": "Displays information about the server."
+    },
+    {
+      "name": "snipe",
+      "description": "Snipes the last deleted message in the channel."
+    } 
 ]

@@ -1,6 +1,4 @@
-// serverinfo.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,34 +8,44 @@ module.exports = {
     const guild = interaction.guild;
     const guildOwner = await guild.fetchOwner();
 
-    const serverInfoEmbed = new MessageEmbed()
-      .setColor('#0099ff')
-      .setTitle('Server Information')
-      .addField('Server Name', guild.name)
-      .addField('Server ID', guild.id)
-      .addField('Created At', guild.createdAt.toDateString())
-      .addField('Region', guild.region)
-      .addField('Member Count', guild.memberCount)
-      .addField('Owner', guildOwner.user.tag);
+    // Total messages in server
+    let totalMessages = 0;
+    guild.channels.cache.forEach(channel => {
+      if (channel.type === 'GUILD_TEXT') {
+        totalMessages += channel.messages.cache.size;
+      }
+    });
+
+    const serverInfo = [
+      `**Server Name:** ${guild.name}`,
+      `**Server ID:** ${guild.id}`,
+      `**Created At:** ${guild.createdAt.toDateString()}`,
+      `**Region:** ${guild.region}`,
+      `**Member Count:** ${guild.memberCount}`,
+      `**Owner:** ${guildOwner.user.tag}`,
+      `**Total Messages:** ${totalMessages}`
+    ];
 
     // Number of boosts
     const boosts = guild.premiumSubscriptionCount || 0;
-    serverInfoEmbed.addField('Boosts', boosts);
+    serverInfo.push(`**Boosts:** ${boosts}`);
 
     // List of roles
     const roleList = guild.roles.cache
       .filter(role => role.name !== '@everyone') // Exclude @everyone role
       .map(role => role.name)
       .join(', ');
-    serverInfoEmbed.addField('Roles', roleList);
+    serverInfo.push(`**Roles:** ${roleList}`);
 
-    // Calculate joins per week
-    const joinedAt = guild.me.joinedAt;
-    const currentTime = new Date();
-    const millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
-    const weeks = Math.round((currentTime - joinedAt) / millisecondsPerWeek);
-    serverInfoEmbed.addField('Joins per Week', weeks);
+    // Calculate joins per week if bot is member of the guild
+    if (guild.me) {
+      const joinedAt = guild.me.joinedAt;
+      const currentTime = new Date();
+      const millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
+      const weeks = Math.round((currentTime - joinedAt) / millisecondsPerWeek);
+      serverInfo.push(`**Joins per Week:** ${weeks}`);
+    }
 
-    await interaction.reply({ embeds: [serverInfoEmbed] });
+    await interaction.reply({ content: serverInfo.join('\n') });
   },
 };
