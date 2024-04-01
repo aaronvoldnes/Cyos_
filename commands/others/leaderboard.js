@@ -1,6 +1,6 @@
 // leaderboard.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { getLeaderboard } = require('/Users/aaron/Cyos/functions/mongodb');
+const { getLeaderboard } = require('../../functions/mongodb');
 
 module.exports = {
   data: new SlashCommandBuilder()
