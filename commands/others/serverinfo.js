@@ -1,51 +1,39 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('serverinfo')
-    .setDescription('Displays information about the server.'),
+    .setDescription('Get information about the server'),
+
   async execute(interaction) {
     const guild = interaction.guild;
-    const guildOwner = await guild.fetchOwner();
-
-    // Total messages in server
-    let totalMessages = 0;
-    guild.channels.cache.forEach(channel => {
-      if (channel.type === 'GUILD_TEXT') {
-        totalMessages += channel.messages.cache.size;
-      }
-    });
-
-    const serverInfo = [
-      `**Server Name:** ${guild.name}`,
-      `**Server ID:** ${guild.id}`,
-      `**Created At:** ${guild.createdAt.toDateString()}`,
-      `**Region:** ${guild.region}`,
-      `**Member Count:** ${guild.memberCount}`,
-      `**Owner:** ${guildOwner.user.tag}`,
-      `**Total Messages:** ${totalMessages}`
-    ];
-
-    // Number of boosts
-    const boosts = guild.premiumSubscriptionCount || 0;
-    serverInfo.push(`**Boosts:** ${boosts}`);
-
-    // List of roles
-    const roleList = guild.roles.cache
-      .filter(role => role.name !== '@everyone') // Exclude @everyone role
-      .map(role => role.name)
-      .join(', ');
-    serverInfo.push(`**Roles:** ${roleList}`);
-
-    // Calculate joins per week if bot is member of the guild
-    if (guild.me) {
-      const joinedAt = guild.me.joinedAt;
-      const currentTime = new Date();
-      const millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
-      const weeks = Math.round((currentTime - joinedAt) / millisecondsPerWeek);
-      serverInfo.push(`**Joins per Week:** ${weeks}`);
+    
+    if (!guild) {
+      return interaction.reply({ content: "Server not found!", ephemeral: true });
     }
 
-    await interaction.reply({ content: serverInfo.join('\n') });
+
+    const guildOwner = await guild.fetchOwner();
+    const createdDate = guild.createdAt.toDateString();
+    const memberCount = guild.memberCount;
+    const boostLevel = guild.premiumTier;
+    const serverIcon = guild.iconURL({ dynamic: true });
+    const roles = guild.roles.cache.map(role => role.name).join(', ');
+
+    const embed = new EmbedBuilder()
+      .setColor('#0099ff')
+      .setTitle(`**${guild.name}** Server Information`)
+      .setThumbnail(serverIcon)
+      .addFields(
+        { name: 'Server ID', value: guild.id },
+        { name: 'Owner', value: `${guildOwner.user.tag}` },
+        { name: 'Boost Level', value: boostLevel.toString() },
+        { name: 'Created At', value: createdDate },
+        { name: 'Member Count', value: memberCount.toString() },
+        { name: 'Roles', value: roles }
+      );
+
+    await interaction.reply({ embeds: [embed] });
   },
 };

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -48,7 +49,14 @@ module.exports = {
                 return interaction.reply({ content: 'Not a valid filter', ephemeral: true });
             }
 
-            interaction.reply({ content: 'Filter updated', ephemeral: true });
+            const filterName = filter.charAt(0).toUpperCase() + filter.slice(1);
+            const filterAction = filter === 'off' ? 'cleared' : queue.filters.has(filter) ? 'added' : 'removed';
+
+            const embed = new EmbedBuilder()
+                .setColor('#0099ff')
+                .setDescription(`Filter ${filterName} ${filterAction}.`);
+
+            interaction.reply({ embeds: [embed], ephemeral: true });
         } catch (error) {
             console.error(error);
             interaction.reply({ content: 'There was an error while processing this command!', ephemeral: true });

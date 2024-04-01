@@ -1,5 +1,5 @@
-// ban.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,7 +26,15 @@ module.exports = {
 
     try {
       await interaction.guild.members.ban(userToBan, { reason: reason });
-      await interaction.reply({ content: `${userToBan.tag} has been banned👋. Reason: ${reason}`, ephemeral: true });
+
+      const banEmbed = new EmbedBuilder()
+        .setColor('#FF0000')
+        .setTitle('User Banned')
+        .setDescription(`${userToBan} has been banned👋.`)
+        .addField('Reason:', reason)
+        .setTimestamp();
+
+      await interaction.reply({ embeds: [banEmbed], ephemeral: true });
 
       console.log(`User ${userToBan.tag} has been banned by ${interaction.user.tag}. Reason: ${reason}`);
     } catch (error) {

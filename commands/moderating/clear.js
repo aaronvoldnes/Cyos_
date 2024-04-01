@@ -1,6 +1,5 @@
-// clear.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const { Permissions, EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -40,9 +39,12 @@ module.exports = {
       return interaction.reply('There was an error while clearing messages.');
     }
 
-    // Check if the interaction is still valid before replying
-    if (!interaction.replied) {
-      return interaction.reply(`Cleared ${messagesToDelete.size} messages.`);
-    }
+    // Prepare and send embed
+    const clearEmbed = new EmbedBuilder()
+      .setColor('#00FF00')
+      .setDescription(`Cleared ${messagesToDelete.size} messages.`)
+      .setTimestamp();
+
+    await interaction.reply({ embeds: [clearEmbed] });
   },
 };

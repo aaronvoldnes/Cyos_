@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 const axios = require('axios');
 
 module.exports = {
@@ -109,7 +110,12 @@ module.exports = {
 
       const randomText = getRandomText(customTextOptions);
 
-      await interaction.reply(`**${randomText}**\n${randomMeme.url}`);
+      const embed = new EmbedBuilder()
+        .setColor('#0099ff')
+        .setDescription(`**${randomText}**`)
+        .setImage(randomMeme.url);
+
+      await interaction.reply({ embeds: [embed] });
     } catch (error) {
       console.error('Error fetching or processing memes:', error);
       await interaction.reply('An error occurred while fetching or processing memes.');

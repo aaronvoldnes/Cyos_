@@ -140,6 +140,32 @@ async function setWelcomeChannel(guildId, channelId) {
   });
 }
 
+async function getLeaderboard() {
+  try {
+    return await executeDatabaseOperation(async (database) => {
+      const collection = database.collection('nextCounts');
+      const allServers = await collection.find({}, { projection: { guildId: 1, _id: 0 } }).toArray();
+
+      const leaderboardData = [];
+      for (const server of allServers) {
+        const { guildId } = server;
+        const nextCount = await getNextCount(guildId);
+        leaderboardData.push({ serverId: guildId, highestCount: nextCount - 1 });
+      }
+
+      leaderboardData.sort((a, b) => b.highestCount - a.highestCount);
+
+      const top10 = leaderboardData.slice(0, 10);
+
+      return top10;
+    });
+  } catch (error) {
+    console.error('Error fetching leaderboard:', error);
+    return [];
+  }
+}
+
+
 async function getUserLevel(guildId, userId) {
   return await executeDatabaseOperation(async (database) => {
     const collection = database.collection('userLevels');
@@ -175,6 +201,7 @@ module.exports = {
   setWelcomeMessage,
   getWelcomeChannel,
   setWelcomeChannel,
+  getLeaderboard,
   getUserLevel,
   setUserLevel,
 };

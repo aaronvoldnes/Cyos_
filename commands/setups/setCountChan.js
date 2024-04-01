@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { setCountingChannelId, getCountingChannelId } = require('../../functions/mongodb');
 
 module.exports = {
@@ -7,7 +7,6 @@ module.exports = {
     .setDescription('Start counting game'),
 
   async execute(interaction) {
-    // Check if the user has the ADMINISTRATOR permission
     if (!interaction.member.permissions.has('ADMINISTRATOR')) {
       await interaction.reply({ content: 'You do not have permission to use this command.', ephemeral: true });
       return;
@@ -17,11 +16,17 @@ module.exports = {
     const channelId = interaction.channel.id;
 
     try {
-      // Delete old channel IDs and store the new channel ID in MongoDB
       await setCountingChannelId(guildId, channelId);
-      await interaction.reply(`Counting game started 😃`);
+
+      const embed = new EmbedBuilder()
+        .setColor('#0099ff')
+        .setTitle('Counting Game Started')
+        .setDescription('The counting game has been started in this channel! Get ready to count!');
+
+      await interaction.reply({ embeds: [embed] });
     } catch (error) {
       console.error(error);
+
       await interaction.reply('There was an error while trying to set the counting channel ID!');
     }
   },

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,24 +12,30 @@ module.exports = {
 
   async execute(interaction) {
     const user = interaction.options.getUser('user');
+    const member = interaction.guild.members.cache.get(user.id);
 
     if (!user) {
       return interaction.reply({ content: "User not found!", ephemeral: true });
     }
 
     const joinedDiscord = user.createdAt.toDateString();
-    const joinedServer = interaction.guild.members.cache.get(user.id).joinedAt.toDateString();
+    const joinedServer = member.joinedAt.toDateString();
+    const nickname = member.nickname || 'None';
     const totalTime = getTotalTime(user.createdAt);
 
-    const userInfo = [
-      `**Username:** ${user.username}`,
-      `**User ID:** ${user.id}`,
-      `**Joined Discord:** ${joinedDiscord}`,
-      `**Joined Server:** ${joinedServer}`,
-      `**Total Time on Discord:** ${totalTime}`
-    ];
+    const embed = new EmbedBuilder()
+      .setColor('#0099ff')
+      .setTitle(`**${nickname}'s** Information`) 
+      .addFields(
+        { name: 'Username', value: user.username },
+        { name: 'Nickname', value: nickname },
+        { name: 'User ID', value: user.id },
+        { name: 'Joined Discord', value: joinedDiscord },
+        { name: 'Joined Server', value: joinedServer },
+        { name: 'Total Time on Discord', value: totalTime }
+      );
 
-    await interaction.reply({ content: userInfo.join('\n') });
+    await interaction.reply({ embeds: [embed] });
   },
 };
 

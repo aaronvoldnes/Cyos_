@@ -1,5 +1,5 @@
-// avatar.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,8 +11,12 @@ module.exports = {
         .setRequired(false)),
   async execute(interaction) {
     const user = interaction.options.getUser('user') || interaction.user;
-    const avatarEmbed = `Avatar of ${user.username}:\n${user.displayAvatarURL({ dynamic: true })}`;
 
-    await interaction.reply(avatarEmbed);
+    const avatarEmbed = new EmbedBuilder()
+      .setColor('#0099ff')
+      .setTitle(`Avatar of ${user.username}`)
+      .setImage(user.displayAvatarURL({ dynamic: true, size: 4096 }));
+
+    await interaction.reply({ embeds: [avatarEmbed] });
   },
 };

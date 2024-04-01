@@ -1,5 +1,5 @@
-// pause.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,10 +12,18 @@ module.exports = {
 
             if (queue.paused) {
                 queue.resume();
-                interaction.reply({ content: 'Resumed the song for you :)', ephemeral: true });
+                const embed = new EmbedBuilder()
+                    .setColor('#00FF00')
+                    .setDescription('Resumed the song for you.');
+
+                interaction.reply({ embeds: [embed], ephemeral: true });
             } else {
                 queue.pause();
-                interaction.reply({ content: 'Paused the song for you :)', ephemeral: true });
+                const embed = new EmbedBuilder()
+                    .setColor('#FF0000')
+                    .setDescription('Paused the song for you.');
+
+                interaction.reply({ embeds: [embed], ephemeral: true });
             }
         } catch (error) {
             console.error(error);

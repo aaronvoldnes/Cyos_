@@ -180,8 +180,16 @@
         ]
     },
     {
-        "name": "randomd",
-        "description": "Roll a random size of dice."
+      "name": "randomd",
+      "description": "View a random user's D.",
+      "options": [
+        {
+          "name": "user",
+          "description": "The user whose D you want to view.",
+          "type": 6,
+          "required": false
+        }
+      ]
     },
     {
         "name": "counting",
@@ -216,6 +224,18 @@
       ]
     },
     {
+      "name": "banner",
+      "description": "View the banner of a user.",
+      "options": [
+        {
+          "name": "user",
+          "description": "The user whose banner you want to view.",
+          "type": 6,
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "whois",
       "description": "View information about a user.",
       "options": [
@@ -230,6 +250,14 @@
     {
       "name": "serverinfo",
       "description": "Displays information about the server."
+    },
+    {
+      "name": "leaderboard",
+      "description": "Displays information about the server."
+    },
+    {
+      "name": "guilds",
+      "description": "Displays leaderboard of servers that counts"
     },
     {
       "name": "snipe",

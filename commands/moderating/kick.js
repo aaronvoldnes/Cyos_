@@ -1,5 +1,5 @@
-// kick.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,7 +26,15 @@ module.exports = {
 
     try {
       await interaction.guild.members.kick(userToKick, reason);
-      await interaction.reply({ content: `${userToKick.tag} has been kicked👋. Reason: ${reason}`, ephemeral: true });
+
+      const kickEmbed = new EmbedBuilder()
+        .setColor('#FFA500')
+        .setTitle('User Kicked')
+        .setDescription(`${userToKick} has been kicked👋.`)
+        .addField('Reason:', reason)
+        .setTimestamp();
+
+      await interaction.reply({ embeds: [kickEmbed], ephemeral: true });
 
       console.log(`User ${userToKick.tag} has been kicked by ${interaction.user.tag}. Reason: ${reason}`);
     } catch (error) {
