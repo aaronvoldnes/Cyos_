@@ -1,266 +1,319 @@
 [
-    {
-        "name": "ban",
-        "description": "Ban a user from the server.",
-        "options": [
-            {
-                "name": "user",
-                "description": "The user to ban.",
-                "type": 6,
-                "required": true
-            }
-        ]
-    },
-    {
-        "name": "kick",
-        "description": "Kick a user from the server.",
-        "options": [
-            {
-                "name": "user",
-                "description": "The user to kick.",
-                "type": 6,
-                "required": true
-            }
-        ]
-    },
-    {
-        "name": "clear",
-        "description": "Clear messages from a channel.",
-        "options": [
-            {
-                "name": "amount",
-                "description": "The number of messages to clear.",
-                "type": 4,
-                "required": true
-            }
-        ]
-    },
-
-
-    
-    {
-        "name": "play",
-        "description": "Play a song from YouTube.",
-        "options": [
-            {
-                "name": "song",
-                "description": "The name of the song to play.",
-                "type": 3,
-                "required": true
-            }
-        ]
-    },
-    {
-        "name": "pause",
-        "description": "Pause the currently playing song."
-    },
-    {
-        "name": "skip",
-        "description": "Skip the currently playing song."
-    },
-    {
-        "name": "autoplay",
-        "description": "Autoplay songs without adding song to queue."
-    },
-    {
-        "name": "shuffle",
-        "description": "Shuffle the songs in the queue."
-    },
-    {
-        "name": "nowplaying",
-        "description": "Display information about the currently playing song."
-    },
-    {
-        "name": "queue",
-        "description": "Display the list of songs in the queue."
-    },
-    {
-      "name": "filter",
-      "description": "Adjust the equalizer settings of the bot.",
+  {
+      "name": "ban",
+      "description": "MODERATION: Ban a user from the server.",
       "options": [
-        {
-          "name": "filter",
-          "description": "The filter to apply or remove.",
-          "type": 3,
-          "required": true,
-          "choices": [
-            {
-              "name": "Off",
-              "value": "off"
-            },
-            {
-              "name": "3D",
-              "value": "3d"
-            },
-            {
-              "name": "Bass Boost",
-              "value": "bassboost"
-            },
-            {
-              "name": "Echo",
-              "value": "echo"
-            },
-            {
-              "name": "Karaoke",
-              "value": "karaoke"
-            },
-            {
-              "name": "Nightcore",
-              "value": "nightcore"
-            },
-            {
-              "name": "Vaporwave",
-              "value": "vaporwave"
-            },
-            {
-              "name": "Flanger",
-              "value": "flanger"
-            },
-            {
-              "name": "Gate",
-              "value": "gate"
-            },
-            {
-              "name": "Haas",
-              "value": "haas"
-            },
-            {
-              "name": "Reverse",
-              "value": "reverse"
-            },
-            {
-              "name": "Surround",
-              "value": "surround"
-            },
-            {
-              "name": "MCompand",
-              "value": "mcompand"
-            },
-            {
-              "name": "Phaser",
-              "value": "phaser"
-            },
-            {
-              "name": "Tremolo",
-              "value": "tremolo"
-            },
-            {
-              "name": "Earwax",
-              "value": "earwax"
-            }
-          ]
-        }
+          {
+              "name": "user",
+              "description": "The user to ban.",
+              "type": 6,
+              "required": true
+          },
+          {
+              "name": "reason",
+              "description": "The reason for the ban.",
+              "type": 3,
+              "required": false
+          }
       ]
-    },   
+  },
+  {
+      "name": "kick",
+      "description": "MODERATION: Kick a user from the server.",
+      "options": [
+          {
+              "name": "user",
+              "description": "The user to kick.",
+              "type": 6,
+              "required": true
+          },
+          {
+              "name": "reason",
+              "description": "The reason for the kick.",
+              "type": 3,
+              "required": false
+          }
+      ]
+  },
+  {
+      "name": "clear",
+      "description": "MODERATION: Clear messages from a channel.",
+      "options": [
+          {
+              "name": "amount",
+              "description": "The number of messages to clear.",
+              "type": 4,
+              "required": true
+          }
+      ]
+  },
 
-    
 
-    {
-        "name": "meme",
-        "description": "Fetch a random meme from the internet."
-    },
-    {
-        "name": "rps",
-        "description": "Play Rock, Paper, Scissors with the bot."
-    },
-    {
-        "name": "td",
-        "description": "Play a fun game of Truth or Dare."
-    },
-    {
-        "name": "welcomemsg",
-        "description": "Set up a customized welcome message for new members.",
-        "options": [
-            {
-                "name": "message",
-                "description": "The welcome message to display.",
-                "type": 3,
-                "required": true
-            }
+  
+  {
+      "name": "play",
+      "description": "MUSIC: Play a song from YouTube.",
+      "options": [
+          {
+              "name": "song",
+              "description": "The name of the song to play.",
+              "type": 3,
+              "required": true
+          }
+      ]
+  },
+  {
+      "name": "pause",
+      "description": "MUSIC: Pause the currently playing song."
+  },
+  {
+      "name": "skip",
+      "description": "MUSIC: Skip the currently playing song."
+  },
+  {
+      "name": "autoplay",
+      "description": "MUSIC: Autoplay songs without adding song to queue."
+  },
+  {
+      "name": "shuffle",
+      "description": "MUSIC: Shuffle the songs in the queue."
+  },
+  {
+      "name": "nowplaying",
+      "description": "MUSIC: Display information about the currently playing song."
+  },
+  {
+      "name": "queue",
+      "description": "MUSIC: Display the list of songs in the queue."
+  },
+  {
+    "name": "filter",
+    "description": "MUSIC: Adjust the equalizer settings of the bot.",
+    "options": [
+      {
+        "name": "filter",
+        "description": "The filter to apply or remove.",
+        "type": 3,
+        "required": true,
+        "choices": [
+          {
+            "name": "Off",
+            "value": "off"
+          },
+          {
+            "name": "3D",
+            "value": "3d"
+          },
+          {
+            "name": "Bass Boost",
+            "value": "bassboost"
+          },
+          {
+            "name": "Echo",
+            "value": "echo"
+          },
+          {
+            "name": "Karaoke",
+            "value": "karaoke"
+          },
+          {
+            "name": "Nightcore",
+            "value": "nightcore"
+          },
+          {
+            "name": "Vaporwave",
+            "value": "vaporwave"
+          },
+          {
+            "name": "Flanger",
+            "value": "flanger"
+          },
+          {
+            "name": "Gate",
+            "value": "gate"
+          },
+          {
+            "name": "Haas",
+            "value": "haas"
+          },
+          {
+            "name": "Reverse",
+            "value": "reverse"
+          },
+          {
+            "name": "Surround",
+            "value": "surround"
+          },
+          {
+            "name": "MCompand",
+            "value": "mcompand"
+          },
+          {
+            "name": "Phaser",
+            "value": "phaser"
+          },
+          {
+            "name": "Tremolo",
+            "value": "tremolo"
+          },
+          {
+            "name": "Earwax",
+            "value": "earwax"
+          }
         ]
-    },
-    {
-      "name": "randomd",
-      "description": "View a random user's D.",
+      }
+    ]
+  },   
+
+  
+
+  {
+      "name": "meme",
+      "description": "FUN: Fetch a random meme from the internet."
+  },
+  {
+      "name": "rps",
+      "description": "FUN: Play Rock, Paper, Scissors with the bot."
+  },
+  {
+      "name": "td",
+      "description": "FUN: Play a fun game of Truth or Dare."
+  },
+  {
+      "name": "welcomemsg",
+      "description": "UTILITY: Set up a customized welcome message for new members.",
       "options": [
-        {
-          "name": "user",
-          "description": "The user whose D you want to view.",
-          "type": 6,
-          "required": false
-        }
+          {
+              "name": "message",
+              "description": "The welcome message to display.",
+              "type": 3,
+              "required": true
+          }
       ]
-    },
-    {
-        "name": "counting",
-        "description": "Set up a counting game in a channel."
-    },
+  },
+  {
+    "name": "randomd",
+    "description": "FUN: View a random user's D.",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user whose D you want to view.",
+        "type": 6,
+        "required": false
+      }
+    ]
+  },
+  {
+      "name": "counting",
+      "description": "FUN: Set up a counting game in a channel."
+  },
 
 
 
 
-    {
-      "name": "ping",
-      "description": "Check the bot's latency."
-    },
-    {
-      "name": "owner",
-      "description": "Get information about the creator of the Discord bot."
-    },
-    {
-      "name": "help",
-      "description": "Display a list of available commands."
-    },
-    {
-      "name": "avatar",
-      "description": "View the avatar of a user.",
-      "options": [
-        {
-          "name": "user",
-          "description": "The user whose avatar you want to view.",
-          "type": 6,
-          "required": false
-        }
-      ]
-    },
-    {
-      "name": "banner",
-      "description": "View the banner of a user.",
-      "options": [
-        {
-          "name": "user",
-          "description": "The user whose banner you want to view.",
-          "type": 6,
-          "required": false
-        }
-      ]
-    },
-    {
-      "name": "whois",
-      "description": "View information about a user.",
-      "options": [
-        {
-          "name": "user",
-          "description": "The user you want to get information about.",
-          "type": 6,
-          "required": true
-        }
-      ]
-    },
-    {
-      "name": "serverinfo",
-      "description": "Displays information about the server."
-    },
-    {
-      "name": "leaderboard",
-      "description": "Displays information about the server."
-    },
-    {
-      "name": "guilds",
-      "description": "Displays leaderboard of servers that counts"
-    },
-    {
-      "name": "snipe",
-      "description": "Snipes the last deleted message in the channel."
-    } 
+  {
+    "name": "ping",
+    "description": "UTILITY: Check the bot's latency."
+  },
+  {
+    "name": "owner",
+    "description": "INFORMATION: Get information about the creator of the Discord bot."
+  },
+  {
+    "name": "help",
+    "description": "INFORMATION: Display a list of available commands."
+  },
+  {
+    "name": "avatar",
+    "description": "INFORMATION: View the avatar of a user.",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user whose avatar you want to view.",
+        "type": 6,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "banner",
+    "description": "INFORMATION: View the banner of a user.",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user whose banner you want to view.",
+        "type": 6,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "whois",
+    "description": "INFORMATION: View information about a user.",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user you want to get information about.",
+        "type": 6,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "rank",
+    "description": "INFORMATION: View your own rank or someone else's rank.",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user you want to get the rank of.",
+        "type": 6,
+        "required": false
+      }
+    ]
+  },    
+  {
+    "name": "serverinfo",
+    "description": "INFORMATION: Displays information about the server."
+  },
+  {
+    "name": "leaderboard",
+    "description": "INFORMATION: Displays information about the server."
+  },
+  {
+    "name": "guilds",
+    "description": "UTILITY: Displays leaderboard of servers that counts"
+  },
+  {
+    "name": "snipe",
+    "description": "UTILITY: Snipes the last deleted message in the channel."
+  },
+  {
+    "name": "levelsystem",
+    "description": "UTILITY: Enable or disable the ranking/level system for the server.",
+    "options": [
+      {
+        "name": "enable",
+        "description": "Enable the level system for the server.",
+        "type": 1
+      },
+      {
+        "name": "disable",
+        "description": "Disable the level system for the server.",
+        "type": 1
+      },
+      {
+        "name": "setchannel",
+        "description": "Set the channel for level up messages.",
+        "type": 1,
+        "options": [
+          {
+            "name": "channel",
+            "description": "The channel for level up messages.",
+            "type": 7,
+            "required": true
+          }
+        ]
+      }
+    ]
+  }    
 ]

@@ -32,7 +32,7 @@ module.exports = {
         { name: 'User ID', value: user.id },
         { name: 'Joined Discord', value: joinedDiscord },
         { name: 'Joined Server', value: joinedServer },
-        { name: 'Total Time on Discord', value: totalTime }
+        { name: 'Account age', value: totalTime }
       );
 
     await interaction.reply({ embeds: [embed] });

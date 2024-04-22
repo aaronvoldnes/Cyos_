@@ -165,29 +165,56 @@ async function getLeaderboard() {
   }
 }
 
+async function setLevelSystemConfig(guildId, enabled, channelId = null) {
+  await connectToDatabase();
+  try {
+      const database = client.db('your_database_name');
+      const collection = database.collection('levelSystemConfig');
 
-async function getUserLevel(guildId, userId) {
-  return await executeDatabaseOperation(async (database) => {
-    const collection = database.collection('userLevels');
-    const result = await collection.findOne({ guildId, userId });
-    return result ? result.level : 0;
-  });
+      const existingConfig = await collection.findOne({ guildId });
+      if (existingConfig) {
+          await collection.updateOne({ guildId }, { $set: { enabled, channelId } });
+      } else {
+          await collection.insertOne({ guildId, enabled, channelId });
+      }
+
+      console.log('Level system configuration updated');
+  } catch (error) {
+      console.error('Error updating level system configuration:', error);
+  }
 }
 
+
 async function setUserLevel(guildId, userId, level) {
-  await executeDatabaseOperation(async (database) => {
-    const collection = database.collection('userLevels');
+  await connectToDatabase();
+  try {
+      const database = client.db('your_database_name');
+      const collection = database.collection('userLevels');
 
-    console.log(`Setting User Level - Guild ID: ${guildId}, User ID: ${userId}, Level: ${level}`);
+      await collection.updateOne(
+          { guildId, userId },
+          { $set: { guildId, userId, level } },
+          { upsert: true }
+      );
 
-    await collection.updateOne(
-      { guildId, userId },
-      { $set: { guildId, userId, level } },
-      { upsert: true }
-    );
+      console.log(`User level for user ${userId} in guild ${guildId} updated to ${level}`);
+  } catch (error) {
+      console.error('Error updating user level:', error);
+  }
+}
 
-    console.log(`User Level set successfully`);
-  });
+async function getUserLevel(guildId, userId) {
+  await connectToDatabase();
+  try {
+      const database = client.db('your_database_name');
+      const collection = database.collection('userLevels');
+
+      const userLevel = await collection.findOne({ guildId, userId });
+      return userLevel ? userLevel.level : 0; // Default level is 0 if user level not found
+  } catch (error) {
+      console.error('Error fetching user level:', error);
+      return 0; // Return default level if error occurs
+  }
 }
 
 module.exports = {
@@ -202,6 +229,7 @@ module.exports = {
   getWelcomeChannel,
   setWelcomeChannel,
   getLeaderboard,
-  getUserLevel,
+  setLevelSystemConfig,
   setUserLevel,
+  getUserLevel
 };
