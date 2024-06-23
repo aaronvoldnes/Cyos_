@@ -47,6 +47,19 @@
           }
       ]
   },
+  {
+    "name": "setautorole",
+    "description": "Set the auto role for new users",
+    "options": [
+      {
+        "type": 8,
+        "name": "role",
+        "description": "Select the auto role",
+        "required": true
+      }
+    ]
+  },
+  
 
 
   
@@ -61,6 +74,18 @@
               "required": true
           }
       ]
+  },
+  {
+    "name": "volume",
+    "description": "MUSIC: Control Volume.",
+    "options": [
+        {
+            "name": "amount",
+            "description": "Control the volume.",
+            "type": 4,
+            "required": true
+        }
+    ]
   },
   {
       "name": "pause",
@@ -85,6 +110,40 @@
   {
       "name": "queue",
       "description": "MUSIC: Display the list of songs in the queue."
+  },
+  {
+    "name": "mode",
+    "description": "MUSIC: Adjust the mode settings of the bot.",
+    "options": [
+      {
+        "name": "preset",
+        "description": "The filter to apply or remove.",
+        "type": 3,
+        "required": true,
+        "choices": [
+          {
+            "name": "Bass Boost",
+            "value": "bassboost"
+          },
+          {
+            "name": "Treble",
+            "value": "treble"
+          },
+          {
+            "name": "Pop",
+            "value": "pop"
+          },
+          {
+            "name": "Rock",
+            "value": "rock"
+          },
+          {
+            "name": "Jazz",
+            "value": "jazz"
+          }
+        ]
+      }
+    ]
   },
   {
     "name": "filter",
@@ -207,6 +266,18 @@
       "name": "counting",
       "description": "FUN: Set up a counting game in a channel."
   },
+  {
+    "name": "ascii",
+    "description": "FUN: Ascii a message!",
+    "options": [
+        {
+            "name": "text",
+            "description": "The message you wanna convert into Ascii.",
+            "type": 3,
+            "required": true
+        }
+    ]
+},
 
 
 

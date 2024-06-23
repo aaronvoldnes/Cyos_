@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js'); // Use MessageEmbed instead of EmbedBuilder
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,8 +10,8 @@ module.exports = {
     const guildInfoEmbed = new EmbedBuilder()
       .setTitle("Guild Information")
       .setDescription(
-        interaction.client.guilds.cache.map(g =>
-          `**Guild Name:** ${g.name}\n**Total Members:** ${g.members.cache.size}\n**Guild ID:** ${g.id}`
+        interaction.client.guilds.cache.map(guild =>
+          `**Guild Name:** ${guild.name}\n**Total Members:** ${guild.memberCount}\n**Guild ID:** ${guild.id}`
         ).join('\n\n')
       );
 

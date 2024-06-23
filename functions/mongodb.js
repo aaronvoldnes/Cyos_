@@ -217,6 +217,30 @@ async function getUserLevel(guildId, userId) {
   }
 }
 
+async function setAutoRole(guildId, roleId) {
+  await executeDatabaseOperation(async (database) => {
+    const collection = database.collection('autoRoles');
+
+    console.log(`Storing guild ID: ${guildId}, Auto Role ID: ${roleId}`);
+
+    await collection.updateOne(
+      { guildId },
+      { $set: { guildId, roleId } },
+      { upsert: true }
+    );
+
+    console.log(`Guild ID: ${guildId}, Auto Role ID: ${roleId} saved successfully`);
+  });
+}
+
+async function getAutoRole(guildId) {
+  return await executeDatabaseOperation(async (database) => {
+    const collection = database.collection('autoRoles');
+    const result = await collection.findOne({ guildId });
+    return result ? result.roleId : null;
+  });
+}
+
 module.exports = {
   connectToDatabase,
   disconnectFromDatabase,
@@ -231,5 +255,7 @@ module.exports = {
   getLeaderboard,
   setLevelSystemConfig,
   setUserLevel,
-  getUserLevel
+  getUserLevel,
+  setAutoRole,
+  getAutoRole
 };

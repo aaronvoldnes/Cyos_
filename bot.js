@@ -1,7 +1,7 @@
 // bot.js
 
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
-const { token } = require('./config.json');
+const { token, mongodb } = require('./config.json');
 const fs = require('fs');
 const { connectToDatabase, getWelcomeChannel, getWelcomeMessage } = require('./functions/mongodb');
 const { DisTube } = require('distube');
@@ -18,10 +18,13 @@ const client = new Client({
     ],
 });
 
+let db;
+
 const distube = new DisTube(client, {
     leaveOnStop: false,
     emitNewSongOnly: true,
 });
+
 
 client.commands = new Map();
 client.textCommands = new Map();
@@ -67,6 +70,13 @@ async function loadEvents() {
     }
 }
 
+// Function to get auto-role from database
+async function getAutoRole(guildId) {
+    const collection = db.collection('guildSettings'); // Replace with your collection name
+    const settings = await collection.findOne({ guildId: guildId });
+    return settings ? settings.autoRoleId : null;
+}
+
 client.login(token).then(async () => {
     console.log('Bot logged in successfully.');
     await loadSlashCommands();
@@ -75,6 +85,39 @@ client.login(token).then(async () => {
 }).catch(error => {
     console.error('Error logging in:', error);
 });
+
+client.on('guildMemberAdd', async (member) => {
+    try {
+        const guildId = member.guild.id;
+        const roleId = await getAutoRole(guildId);
+
+        if (roleId) {
+            const role = member.guild.roles.cache.get(roleId);
+            if (role) {
+                await member.roles.add(role);
+            } else {
+                console.error(`Auto-role (${roleId}) not found for guild ${guildId}`);
+            }
+        }
+
+        const channelId = await getWelcomeChannel(guildId); // Implement getWelcomeChannel function
+        const welcomeMessage = await getWelcomeMessage(guildId, channelId); // Implement getWelcomeMessage function
+
+        if (channelId && welcomeMessage) {
+            const formattedMessage = welcomeMessage.replace('{username}', member.user.username);
+            const channel = member.guild.channels.cache.get(channelId);
+
+            if (channel) {
+                await channel.send(formattedMessage);
+            } else {
+                console.error(`Welcome channel with ID ${channelId} not found.`);
+            }
+        }
+    } catch (error) {
+        console.error('Error handling guild member add event:', error);
+    }
+});
+
 
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
