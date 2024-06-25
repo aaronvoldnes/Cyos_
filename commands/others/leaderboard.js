@@ -11,7 +11,7 @@ module.exports = {
 
     if (leaderboard.length > 0) {
       const embed = new EmbedBuilder()
-        .setColor(0x0000FF) // Hexadecimal color code for blue
+        .setColor(0x0000FF)
         .setTitle('Server Leaderboard')
         .setTimestamp();
 
